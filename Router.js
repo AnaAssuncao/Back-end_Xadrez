@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const RoomCode = require('./Controller/StartGame')
-const room= new RoomCode()
+const StartGame = require('./Controller/StartGame')
+const startGame= new StartGame()
 const GameMovement = require('./Controller/GameMovement')
 const movement = new GameMovement()
 const StatusGame = require('./Controller/StatusGame')
@@ -20,9 +20,9 @@ const nameRouter = {
     statusGame:apiPrefix + "statusGame"
 }
 
-router.post(nameRouter.startNewRoom, room.startNewRoom)
+router.post(nameRouter.startNewRoom, startGame.startNewRoom)
 
-router.post(nameRouter.connectInARoom, room.connectInARoom)
+router.post(nameRouter.connectInARoom, startGame.connectInARoom)
 
 router.post(nameRouter.updateMovement, movement.updateMovement)
 
