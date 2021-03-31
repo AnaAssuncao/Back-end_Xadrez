@@ -1,15 +1,15 @@
 module.exports = class Utils{
     #times={
-        connectPlayer: 300000, 
+        connectPlayer: 100000, 
         movement:300000,
         checkPlayer: 1000, 
         checkMovement: 1000,
         limitEndGame:60
     }
     
-    verifyInactivity(gameRooms,game){
+    verifyInactivity(gameRooms,game,roomCode){
         const timePlayers = setInterval(()=>{
-            const existCode = gameRooms.verifyRoomCode(game.roomCode)
+            const existCode = gameRooms.verifyRoomCode(roomCode)
             if(existCode){
                 for(let playerCode in game.infPlayers){
                     if((Date.now()-game.infPlayers[playerCode].time)>this.#times.connectPlayer){

@@ -44,7 +44,7 @@ module.exports = class RoomCode{
 				const status = new InfGame(game,playerCode,statusServer.room.connectedRoom)
 				res.status(200).send(status)
 				gameTime.verifyDelayToMovement(gameRooms,game)
-				gameTime.verifyInactivity(gameRooms,game)
+				gameTime.verifyInactivity(gameRooms,game,roomCode)
 			}
 			else{
 				const status = new InfTypeStatus (statusServer.room.roomUnavailable)
