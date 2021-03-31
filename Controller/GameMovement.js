@@ -2,13 +2,13 @@ const { InfMovement, InfTypeStatus  } = require('../Models/PrototypesGame')
 const statusServer= require("../StatusServer.js")
 
 module.exports= class Movement {
-    updateMovement= async function(req,res){
+    updateMovement= async function(req,res,gameRooms){
         const roomCode = req.body.roomCode
         const playerCode = req.body.playerCode
         const moveSent = req.body.movement
         const existCode = gameRooms.verifyRoomCode(roomCode)
         if(existCode){
-            const game = gameRooms.createdRooms[roomCode]
+            const game = gameRooms.getGameByRoomCode(roomCode)
            if(game.lastMove.playerCode!==playerCode){
                 const movementTime= Date.now()
                 game.updateLastMove(moveSent, playerCode,movementTime)
@@ -32,12 +32,12 @@ module.exports= class Movement {
 		}
     }
 
-    getMovement = function(req,res){
+    getMovement = function(req,res,gameRooms){
         const roomCode = req.query.roomCode
         const playerCode = req.query.playerCode
         const existCode = gameRooms.verifyRoomCode(roomCode)
         if(existCode){
-            const game = gameRooms.createdRooms[roomCode]
+            const game = gameRooms.getGameByRoomCode(roomCode)
             if(game.lastMove.playerCode!==playerCode){
                 if(game.lastMove.availableMovement === true){
                     const status = new InfMovement(game, playerCode, statusServer.movement.movementAvailable)
@@ -63,13 +63,13 @@ module.exports= class Movement {
 		}
     }
 
-    incorrectMovement(req,res){
+    incorrectMovement(req,res,gameRooms){
         const roomCode = req.body.roomCode
         const playerCode = req.body.playerCode
         const incorrectMovement = req.body.incorrectMovement
         const existCode = gameRooms.verifyRoomCode(roomCode)
         if(existCode){
-            const game = gameRooms.createdRooms[roomCode]
+            const game = gameRooms.getGameByRoomCode(roomCode)
             if(game.lastMove.playerCode!==playerCode){
                 if(incorrectMovement===true){
                     game.reportIncorretMovement()

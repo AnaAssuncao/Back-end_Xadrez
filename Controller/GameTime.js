@@ -7,7 +7,7 @@ module.exports = class Utils{
         limitEndGame:60
     }
     
-    verifyInactivity(game){
+    verifyInactivity(gameRooms,game){
         const timePlayers = setInterval(()=>{
             const existCode = gameRooms.verifyRoomCode(game.roomCode)
             if(existCode){
@@ -26,7 +26,7 @@ module.exports = class Utils{
         },this.#times.checkPlayer)
     }
 
-    verifyDelayToMovement(game){
+    verifyDelayToMovement(gameRooms,game){
         const timeMovement=setInterval(()=>{
             const existCode = gameRooms.verifyRoomCode(game.roomCode)
             if(existCode){
@@ -45,7 +45,7 @@ module.exports = class Utils{
         },this.#times.checkMovement)  
     }
 
-    verifyToEndGame(game,timeCounter=0){
+    verifyToEndGame(gameRooms,game,timeCounter=0){
         setTimeout(()=>{  
             const existCode = gameRooms.verifyRoomCode(game.roomCode)
             if(existCode){     

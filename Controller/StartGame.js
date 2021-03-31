@@ -5,12 +5,12 @@ const { v4: uuidv4 } = require('uuid');
 const statusServer= require("../StatusServer.js")
 
 module.exports = class RoomCode{
-	startNewRoom(req,res){
+	startNewRoom(req,res,gameRooms){
 		const roomCode = req.body.roomCode
 		const playerName = req.body.playerName
 		const existCode = gameRooms.verifyRoomCode(roomCode)
 		if(existCode){
-			const game = gameRooms.createdRooms[roomCode]
+			const game = gameRooms.getGameByRoomCode(roomCode)
 			const availabilityPlay = game.verifyPlayers()
 			if(availabilityPlay){
 				const status = new InfTypeStatus(statusServer.room.roomWithOnePlayer)
@@ -25,17 +25,17 @@ module.exports = class RoomCode{
 			const playerCode = uuidv4()
 			const playerColor = "White"
 			gameRooms.addNewRoom(roomCode,playerCode,playerName,playerColor)
-			const status = new InfGame(gameRooms.createdRooms[roomCode],playerCode,statusServer.room.connectedRoom)
+			const status = new InfGame(gameRooms.getGameByRoomCode(roomCode),playerCode,statusServer.room.connectedRoom)
 			res.status(200).send(status)
 		}	
 	}
 
-	connectInARoom(req,res){
+	connectInARoom(req,res,gameRooms){
 		const roomCode = req.body.roomCode
 		const playerName = req.body.playerName
 		const existCode = gameRooms.verifyRoomCode(roomCode)
 		if(existCode){
-			const game = gameRooms.createdRooms[roomCode]
+			const game = gameRooms.getGameByRoomCode(roomCode)
 			const availabilityPlay = game.verifyPlayers()
 			if(availabilityPlay){
 				const playerCode = uuidv4()
@@ -43,8 +43,8 @@ module.exports = class RoomCode{
 				game.addSecondPlayer(playerCode,playerName,playerColor)
 				const status = new InfGame(game,playerCode,statusServer.room.connectedRoom)
 				res.status(200).send(status)
-				gameTime.verifyDelayToMovement(game)
-				gameTime.verifyInactivity(game)
+				gameTime.verifyDelayToMovement(gameRooms,game)
+				gameTime.verifyInactivity(gameRooms,game)
 			}
 			else{
 				const status = new InfTypeStatus (statusServer.room.roomUnavailable)

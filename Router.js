@@ -6,6 +6,8 @@ const GameMovement = require('./Controller/GameMovement')
 const movement = new GameMovement()
 const StatusGame = require('./Controller/StatusGame')
 const status = new StatusGame
+const GameRooms = require('./Models/GameRooms')
+const gameRooms = new GameRooms()
 const apiPrefix = "/api/v1/"
 
 const nameRouter = {
@@ -20,22 +22,22 @@ const nameRouter = {
     statusGame:apiPrefix + "statusGame"
 }
 
-router.post(nameRouter.startNewRoom, startGame.startNewRoom)
+router.post(nameRouter.startNewRoom, (req,res)=>startGame.startNewRoom(req,res,gameRooms))
 
-router.post(nameRouter.connectInARoom, startGame.connectInARoom)
+router.post(nameRouter.connectInARoom, (req,res)=>startGame.connectInARoom(req,res,gameRooms))
 
-router.post(nameRouter.updateMovement, movement.updateMovement)
+router.post(nameRouter.updateMovement, (req,res)=>movement.updateMovement(req,res,gameRooms))
 
-router.get(nameRouter.getMovement, movement.getMovement)
+router.get(nameRouter.getMovement, (req,res)=>movement.getMovement(req,res,gameRooms))
 
-router.post(nameRouter.incorrectMovement, movement.incorrectMovement)
+router.post(nameRouter.incorrectMovement, (req,res)=>movement.incorrectMovement(req,res,gameRooms))
 
-router.post(nameRouter.giveUpGame, status.giveUp)
+router.post(nameRouter.giveUpGame, (req,res)=>status.giveUp(req,res,gameRooms))
 
-router.post(nameRouter.endGame, status.endGame)
+router.post(nameRouter.endGame, (req,res)=>status.endGame(req,res,gameRooms))
 
-router.post(nameRouter.endGame, status.endGame)
+router.post(nameRouter.endGame, (req,res)=>status.endGame(req,res,gameRooms))
 
-router.get(nameRouter.statusGame,status.getStatusGame)
+router.get(nameRouter.statusGame,(req,res)=>status.getStatusGame(req,res,gameRooms))
 
 module.exports = router
