@@ -43,7 +43,7 @@ module.exports = class RoomCode{
 				game.addSecondPlayer(playerCode,playerName,playerColor)
 				const status = new InfGame(game,playerCode,statusServer.room.connectedRoom)
 				res.status(200).send(status)
-				gameTime.verifyDelayToMovement(gameRooms,game)
+				gameTime.verifyDelayToMovement(gameRooms,game,roomCode)
 				gameTime.verifyInactivity(gameRooms,game,roomCode)
 			}
 			else{

@@ -28,7 +28,7 @@ module.exports = class StatusGame{
         if(existCode){
             if(endGame){
                 game.updateEndGamePlayer(playerCode)
-                gameTime.verifyToEndGame(gameRooms,game)
+                gameTime.verifyToEndGame(gameRooms,game,roomCode)
                 const statusGame= new InfGame(game,playerCode,statusServer.statusGame.endGame)
                 res.status(200).send(statusGame)
             }
@@ -52,7 +52,7 @@ module.exports = class StatusGame{
             const game = gameRooms.getGameByRoomCode(roomCode)
             if(giveUp){
                 game.updateGiveUpPlayer(playerCode)
-                gameTime.verifyToEndGame(gameRooms,game)
+                gameTime.verifyToEndGame(gameRooms,game,roomCode)
                 const statusGame= new InfGame(game,playerCode,statusServer.statusGame.giveUp)
                 res.status(200).send(statusGame)
             }

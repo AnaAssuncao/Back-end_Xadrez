@@ -26,9 +26,9 @@ module.exports = class Utils{
         },this.#times.checkPlayer)
     }
 
-    verifyDelayToMovement(gameRooms,game){
+    verifyDelayToMovement(gameRooms,game,roomCode){
         const timeMovement=setInterval(()=>{
-            const existCode = gameRooms.verifyRoomCode(game.roomCode)
+            const existCode = gameRooms.verifyRoomCode(roomCode)
             if(existCode){
                 if(game.lastMove.movementTime){
                     if((Date.now()-game.lastMove.movementTime)>this.#times.movement){
@@ -45,9 +45,9 @@ module.exports = class Utils{
         },this.#times.checkMovement)  
     }
 
-    verifyToEndGame(gameRooms,game,timeCounter=0){
+    verifyToEndGame(gameRooms,game,roomCode,timeCounter=0){
         setTimeout(()=>{  
-            const existCode = gameRooms.verifyRoomCode(game.roomCode)
+            const existCode = gameRooms.verifyRoomCode(roomCode)
             if(existCode){     
                 const arePlayersConnected = game.verifyConnectionPlayers(game) 
                 if((arePlayersConnected===false) || (timeCounter===this.#times.limitEndGame)){       
