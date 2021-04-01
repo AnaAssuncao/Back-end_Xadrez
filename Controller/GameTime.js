@@ -1,4 +1,4 @@
-module.exports = class Utils{
+module.exports = class GameTime{
     #times={
         connectPlayer: 100000, 
         movement:300000,
@@ -15,7 +15,7 @@ module.exports = class Utils{
                     if((Date.now()-game.infPlayers[playerCode].time)>this.#times.connectPlayer){
                         clearInterval(timePlayers) 
                         game.updateGiveUpPlayer(playerCode)
-                        this.verifyToEndGame(game)
+                        this.verifyToEndGame(gameRooms,game,roomCode)
                     }
                 }
             }
@@ -34,7 +34,7 @@ module.exports = class Utils{
                     if((Date.now()-game.lastMove.movementTime)>this.#times.movement){
                         clearInterval(timeMovement) 
                         game.updateGiveUpPlayer(game.lastMove.playerCode)
-                        this.verifyToEndGame(game)
+                        this.verifyToEndGame(gameRooms,game,roomCode)
                     }
                     const arePlayersConnected = game.verifyConnectionPlayers(game) 
                     if(arePlayersConnected===false){
@@ -46,18 +46,18 @@ module.exports = class Utils{
     }
 
     verifyToEndGame(gameRooms,game,roomCode,timeCounter=0){
-        setTimeout(()=>{  
-            const existCode = gameRooms.verifyRoomCode(roomCode)
-            if(existCode){     
-                const arePlayersConnected = game.verifyConnectionPlayers(game) 
-                if((arePlayersConnected===false) || (timeCounter===this.#times.limitEndGame)){       
+        setTimeout(()=>{         
+            const arePlayersConnected = game.verifyConnectionPlayers(game) 
+            if((arePlayersConnected===false) || (timeCounter===this.#times.limitEndGame)){  
+                const existCode = gameRooms.verifyRoomCode(roomCode)
+                if(existCode){        
                     gameRooms.removeRoom(game.roomCode)
                 }
-                else{
-                    timeCounter++
-                    this.verifyToEndGame(game,timeCounter)
-                }
             }
+            else{
+                timeCounter++
+                this.verifyToEndGame(gameRooms,game,roomCode,timeCounter)
+            }  
         },this.#times.checkPlayer)
     }
 }

@@ -6,7 +6,9 @@ class GameRooms{
         return this.#createdRooms[roomCode]
     }
     removeRoom(roomCode){
-        setTimeout(()=>delete this.#createdRooms[roomCode],30000)
+        setTimeout(()=>{
+            delete this.#createdRooms[roomCode]
+        })
     }
     verifyRoomCode(roomCode){
         if(this.#createdRooms[roomCode]){
