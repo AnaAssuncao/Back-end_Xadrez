@@ -1,6 +1,6 @@
 module.exports = class GameTime{
     #times={
-        connectPlayer: 100000, 
+        connectPlayer: 180000, 
         movement:300000,
         checkPlayer: 1000, 
         checkMovement: 1000,
