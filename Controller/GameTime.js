@@ -5,7 +5,7 @@ module.exports = class GameTime{
         checkPlayer: 1000, 
         checkMovement: 1000,
         limitEndGame:60,
-        reconnectPlayer:2000
+        reconnectPlayer:3000
     }
     
     verifyInactivity(gameRooms,game,roomCode){
