@@ -4,7 +4,8 @@ module.exports = class GameTime{
         movement:300000,
         checkPlayer: 1000, 
         checkMovement: 1000,
-        limitEndGame:60
+        limitEndGame:60,
+        reconnectPlayer:2000
     }
     
     verifyInactivity(gameRooms,game,roomCode){
@@ -59,5 +60,12 @@ module.exports = class GameTime{
                 this.verifyToEndGame(gameRooms,game,roomCode,timeCounter)
             }  
         },this.#times.checkPlayer)
+    }
+
+    verifyTimePlayerToReconnect(game,playerCode){
+        if((Date.now()-game.infPlayers[playerCode].time)>this.#times.reconnectPlayer){
+            return true
+        }
+        return false
     }
 }

@@ -1,5 +1,7 @@
 const {InfTypeStatus} = require('../Models/PrototypesGame')
 const statusServer= require("../StatusServer.js")
+const GameTime = require('./GameTime')
+const gameTime = new GameTim
 
 module.exports = class RecoveryGame{
     reconnectGame(req,res,gameRooms){
@@ -15,18 +17,16 @@ module.exports = class RecoveryGame{
             }
             if(existPlayer===true){
                 const connectionPlayers = game.verifyConnectionPlayers()
-                if(connectionPlayers){
-                    connectionStatus.connection=statusServer.room.reconnectRoom
-                    connectionStatus.statusPlayerAdv=game.getInfPlayerAdv(playerCode)
-                    res.status(200).send(connectionStatus)
+                if(connectionPlayers===true){
+                    const timeInformeAlive = gameTime.verifyTimePlayerToReconnect(game,playerCode)
+                    if(timeInformeAlive===true){
+                        connectionStatus.connection=statusServer.room.reconnectRoom
+                        connectionStatus.statusPlayerAdv=game.getInfPlayerAdv(playerCode)
+                        
+                    }
                 }
-                else{
-                    res.status(200).send(connectionStatus)
-                 }
             }
-            else{
-                res.status(200).send(connectionStatus)
-            }
+            res.status(200).send(connectionStatus)
         }
         else{
 			const status = new InfTypeStatus (statusServer.room.noExistRoom)
