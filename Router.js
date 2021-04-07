@@ -39,8 +39,6 @@ router.post(nameRouter.giveUpGame, (req,res)=>status.giveUp(req,res,gameRooms))
 
 router.post(nameRouter.endGame, (req,res)=>status.endGame(req,res,gameRooms))
 
-router.post(nameRouter.endGame, (req,res)=>status.endGame(req,res,gameRooms))
-
 router.get(nameRouter.statusGame,(req,res)=>status.getStatusGame(req,res,gameRooms))
 
 router.post(nameRouter.reconnectRoom, (req,res)=>reconnectRoom.reconnectGame(req,res,gameRooms))

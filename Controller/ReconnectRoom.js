@@ -1,7 +1,7 @@
 const {InfTypeStatus} = require('../Models/PrototypesGame')
 const statusServer= require("../StatusServer.js")
 const GameTime = require('./GameTime')
-const gameTime = new GameTim
+const gameTime = new GameTime
 
 module.exports = class RecoveryGame{
     reconnectGame(req,res,gameRooms){
