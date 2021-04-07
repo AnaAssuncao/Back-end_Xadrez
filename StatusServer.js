@@ -3,6 +3,8 @@ const room={
     roomUnavailable:"roomUnavailable",
     connectedRoom:"connectedRoom",
     noExistRoom:"noExistRoom",   
+    reconnectRoom:"reconnectRoom",
+    roomNotReconnected:"roomNotReconnected"
 }
 
 const statusGame ={

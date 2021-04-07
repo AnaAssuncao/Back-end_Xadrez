@@ -124,15 +124,19 @@ module.exports = class Room{
         return true
     }
     verifyConnectionPlayers(){
-        let connectionPlayers = false
-        if(this.infPlayers[this.playersCode.white].connection===true){
-            connectionPlayers=true
-        }
-        if(this.playersCode.black){
-            if( this.infPlayers[this.playersCode.black].connection===true){
-                connectionPlayers=true
+        if(this.infPlayers[this.playersCode.white].connection===true && this.infPlayers[this.playersCode.white].endGame===false){
+            if(this.playersCode.black){
+                if(this.infPlayers[this.playersCode.black].connection===true && this.infPlayers[this.playersCode.black].endGame===false){
+                   return true
+                }
             }
         }
-        return connectionPlayers
+        return false
+    }
+    verifyCodePlayers(playerCode){
+        if(this.infPlayers[playerCode]){
+            return true
+        }
+        return false
     }
 }

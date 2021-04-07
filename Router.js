@@ -5,7 +5,9 @@ const startGame= new StartGame()
 const GameMovement = require('./Controller/GameMovement')
 const movement = new GameMovement()
 const StatusGame = require('./Controller/StatusGame')
-const status = new StatusGame
+const status = new StatusGame()
+const RecoveryGame = require('./Controller/ReconnectRoom')
+const reconnectRoom = new RecoveryGame()
 const GameRooms = require('./Models/GameRooms')
 const gameRooms = new GameRooms()
 const apiPrefix = "/api/v1/"
@@ -19,7 +21,8 @@ const nameRouter = {
     giveUpGame: apiPrefix + "giveUpGame",
     endGame: apiPrefix + "endGame",
     confirmEndGame: apiPrefix + "confirmEndGame",
-    statusGame:apiPrefix + "statusGame"
+    statusGame:apiPrefix + "statusGame",
+    reconnectRoom:apiPrefix + "reconnectRoom"
 }
 
 router.post(nameRouter.startNewRoom, (req,res)=>startGame.startNewRoom(req,res,gameRooms))
@@ -39,5 +42,7 @@ router.post(nameRouter.endGame, (req,res)=>status.endGame(req,res,gameRooms))
 router.post(nameRouter.endGame, (req,res)=>status.endGame(req,res,gameRooms))
 
 router.get(nameRouter.statusGame,(req,res)=>status.getStatusGame(req,res,gameRooms))
+
+router.post(nameRouter.reconnectRoom, (req,res)=>reconnectRoom.reconnectGame(req,res,gameRooms))
 
 module.exports = router
