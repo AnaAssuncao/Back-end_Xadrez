@@ -21,6 +21,7 @@ module.exports = class Room{
             endGame: false,
         }
         this.lastMove = {
+            qtMovements:0,
             availableMovement:false,
             incorretMovement:false,
             movementTime:null,
@@ -61,6 +62,7 @@ module.exports = class Room{
                 this.lastMove.playerCode = playerCode
                 this.lastMove.movement = movement
                 this.lastMove.movementTime = movementTime
+                this.lastMove.qtMovements++
             }
             else{
                 this.lastMove.availableMovement = false
@@ -71,6 +73,7 @@ module.exports = class Room{
             this.lastMove.movement = movement
             this.lastMove.availableMovement = true
             this.lastMove.movementTime = movementTime
+            this.lastMove.qtMovements++
         }
         const nextPlayer=(this.#color.white===this.lastMove.movement.color)?this.#color.black:this.#color.white
         this.statusGame.currentPlaye=nextPlayer
@@ -113,6 +116,9 @@ module.exports = class Room{
             endGame:this.statusGame.endGame
         }
         return statusGame
+    }
+    getQtMovement(){
+        return this.lastMove.qtMovements
     }
     reportIncorretMovement(){
         this.lastMove.incorretMovement=true

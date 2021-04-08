@@ -13,7 +13,8 @@ module.exports = class RecoveryGame{
             const existPlayer = game.verifyCodePlayers(playerCode)
             const connectionStatus ={
                 connection:statusServer.room.roomNotReconnected,
-                statusPlayerAdv:null
+                statusPlayerAdv:null,
+                qtMovements:0
             }
             if(existPlayer===true){
                 const connectionPlayers = game.verifyConnectionPlayers()
@@ -22,7 +23,7 @@ module.exports = class RecoveryGame{
                     if(timeInformeAlive===true){
                         connectionStatus.connection=statusServer.room.reconnectRoom
                         connectionStatus.statusPlayerAdv=game.getInfPlayerAdv(playerCode)
-                        
+                        connectionStatus.qtMovements=game.getQtMovement()
                     }
                 }
             }
