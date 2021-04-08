@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const StatusServer = require('./Controller/StatusServer')
+const statusServer= new StatusServer()
 const StartGame = require('./Controller/StartGame')
 const startGame= new StartGame()
 const GameMovement = require('./Controller/GameMovement')
@@ -13,6 +15,7 @@ const gameRooms = new GameRooms()
 const apiPrefix = "/api/v1/"
 
 const nameRouter = {
+    wakeUpServer: apiPrefix + "wakeUp",
     startNewRoom: apiPrefix + "startGame/startNewRoom",
     connectInARoom: apiPrefix + "startGame/connectInARoom",
     updateMovement: apiPrefix + "movementGame/updateMovement",
@@ -24,6 +27,8 @@ const nameRouter = {
     statusGame:apiPrefix + "statusGame",
     reconnectRoom:apiPrefix + "reconnectRoom"
 }
+
+router.get(nameRouter.wakeUpServer,(req,res)=>statusServer.wakeUpServer(req,res))
 
 router.post(nameRouter.startNewRoom, (req,res)=>startGame.startNewRoom(req,res,gameRooms))
 
