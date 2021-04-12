@@ -17,7 +17,7 @@ module.exports = class RecoveryGame{
                 qtMovements:0
             }
             if(existPlayer===true){
-                const connectionPlayers = game.verifyConnectionPlayers()
+                const connectionPlayers = game.verifyConnectionPlayers().includes(true)
                 if(connectionPlayers===true){
                     const timeInformeAlive = gameTime.verifyTimePlayerToReconnect(game,playerCode)
                     if(timeInformeAlive===true){

@@ -1,3 +1,5 @@
+const statusServer= require("../StatusServer.js")
+
 module.exports = class GameTime{
     #times={
         connectPlayer: 180000, 
@@ -15,7 +17,8 @@ module.exports = class GameTime{
                 for(let playerCode in game.infPlayers){
                     if((Date.now()-game.infPlayers[playerCode].time)>this.#times.connectPlayer){
                         clearInterval(timePlayers) 
-                        game.updateGiveUpPlayer(playerCode)
+                        const typeEndGame =  statusServer.statusGame.giveUp
+                        game.updateEndGame(typeEndGame,playerCode)
                         this.verifyToEndGame(gameRooms,game,roomCode)
                     }
                 }
@@ -34,10 +37,12 @@ module.exports = class GameTime{
                 if(game.lastMove.movementTime){
                     if((Date.now()-game.lastMove.movementTime)>this.#times.movement){
                         clearInterval(timeMovement) 
-                        game.updateGiveUpPlayer(game.lastMove.playerCode)
+                        const typeEndGame =  statusServer.statusGame.timeOutToMove
+                        const codeOfTheNextPlayer = game.getCodeNextPlayer()
+                        game.updateEndGamePlayer(typeEndGame,codeOfTheNextPlayer)
                         this.verifyToEndGame(gameRooms,game,roomCode)
                     }
-                    const arePlayersConnected = game.verifyConnectionPlayers(game) 
+                    const arePlayersConnected = game.verifyConnectionPlayers(game).includes(true)
                     if(arePlayersConnected===false){
                         clearInterval(timeMovement) 
                     }
@@ -48,7 +53,7 @@ module.exports = class GameTime{
 
     verifyToEndGame(gameRooms,game,roomCode,timeCounter=0){
         setTimeout(()=>{         
-            const arePlayersConnected = game.verifyConnectionPlayers(game) 
+            const arePlayersConnected = game.verifyConnectionPlayers(game).includes(true)
             if((arePlayersConnected===false) || (timeCounter===this.#times.limitEndGame)){  
                 const existCode = gameRooms.verifyRoomCode(roomCode)
                 if(existCode){        

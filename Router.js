@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const StatusServer = require('./Controller/StatusServer')
-const statusServer= new StatusServer()
+const FunctionsServer = require('./Controller/FunctionsServer')
+const functionsServer= new FunctionsServer()
 const StartGame = require('./Controller/StartGame')
 const startGame= new StartGame()
 const GameMovement = require('./Controller/GameMovement')
@@ -25,10 +25,11 @@ const nameRouter = {
     endGame: apiPrefix + "endGame",
     confirmEndGame: apiPrefix + "confirmEndGame",
     statusGame:apiPrefix + "statusGame",
-    reconnectRoom:apiPrefix + "reconnectRoom"
+    reconnectRoom:apiPrefix + "reconnectRoom",
+    playerWin: apiPrefix + "playerWin"
 }
 
-router.get(nameRouter.wakeUpServer,(req,res)=>statusServer.wakeUpServer(req,res))
+router.get(nameRouter.wakeUpServer,(req,res)=>functionsServer.wakeUpServer(req,res))
 
 router.post(nameRouter.startNewRoom, (req,res)=>startGame.startNewRoom(req,res,gameRooms))
 
@@ -43,6 +44,8 @@ router.post(nameRouter.incorrectMovement, (req,res)=>movement.incorrectMovement(
 router.post(nameRouter.giveUpGame, (req,res)=>status.giveUp(req,res,gameRooms))
 
 router.post(nameRouter.endGame, (req,res)=>status.endGame(req,res,gameRooms))
+
+router.post(nameRouter.playerWin, (req,res)=>status.playerWin(req,res,gameRooms))
 
 router.get(nameRouter.statusGame,(req,res)=>status.getStatusGame(req,res,gameRooms))
 

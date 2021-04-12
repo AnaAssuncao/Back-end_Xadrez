@@ -1,5 +1,7 @@
 const { InfMovement, InfTypeStatus  } = require('../Models/PrototypesGame')
 const statusServer= require("../StatusServer.js")
+const GameTime = require('./GameTime')
+const gameTime = new GameTime
 
 module.exports= class Movement {
     updateMovement= async function(req,res,gameRooms){
@@ -72,6 +74,9 @@ module.exports= class Movement {
             const game = gameRooms.getGameByRoomCode(roomCode)
             if(game.lastMove.playerCode!==playerCode){
                 if(incorrectMovement===true){
+                    const typeEndGame =  statusServer.statusGame.giveUp
+                    game.updateEndGamePlayer(typeEndGame,playerCode)
+                    gameTime.verifyToEndGame(gameRooms,game,roomCode)
                     game.reportIncorretMovement()
                     res.status(200).send(statusServer.movement.confirmedMove)
                 }

@@ -10,7 +10,10 @@ const room={
 const statusGame ={
     chess:"statusGame",
     endGame:"endGame",
-    giveUp:"giveUp"
+    playerWin:"playerWin",
+    giveUp:"giveUp",
+    timeOutToMove:"timeOutToMove",
+    incorretMovement:"IncorretMovement"
 }
 
 const movement={

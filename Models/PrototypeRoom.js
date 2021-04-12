@@ -2,8 +2,8 @@ const {InfPlayer} = require('./PrototypesGame')
 
 module.exports = class Room{
     #color={
-        white:"White",
-        black:"Black",
+        white:"white",
+        black:"black",
     }
     constructor(roomCode,playerCode,namePlayer,playerColor){
         this.roomCode = roomCode,
@@ -15,10 +15,13 @@ module.exports = class Room{
             // Chave do objeto é o codigo do jogador. Objeto contém as informações de cada jogador.
         }
         this.statusGame = {
-            currentPlayer:"White",
+            currentPlayer:"white",
             connectionPlayers: false,
-            giveUp: false,
-            endGame: false,
+            endGame: {
+                isEndGame:false,
+                type:null,
+                playerName:null
+            }
         }
         this.lastMove = {
             qtMovements:0,
@@ -36,20 +39,18 @@ module.exports = class Room{
         this.infPlayers[playerCode] = new InfPlayer(playerCode, namePlayer,playerColor)
     }
     addSecondPlayer(playerCode,namePlayer,playerColor){
+        this.lastMove.movementTime=Date.now()
         this.playersCode.black=playerCode
         this.lastMove.playerCode = null
         this.statusGame.connectionPlayers=true
         this.infPlayers[playerCode] = new InfPlayer(playerCode, namePlayer,playerColor)
     }
-    updateGiveUpPlayer(playerCode){
-        this.statusGame.giveUp=true
-        this.statusGame.endGame=true
-        this.infPlayers[playerCode].connection=false
-        this.infPlayers[playerCode].giveUp=true
-        this.infPlayers[playerCode].endGame=true
-    }
-    updateEndGamePlayer(playerCode){
-        this.statusGame.endGame=true
+    updateEndGamePlayer(type,playerCode){
+        if(this.statusGame.endGame.isEndGame===false){
+            this.statusGame.endGame.isEndGame=true
+            this.statusGame.endGame.type=type
+            this.statusGame.endGame.playerName=this.infPlayers[playerCode].namePlayer
+        }
         this.infPlayers[playerCode].connection=false
         this.infPlayers[playerCode].giveUp=false
         this.infPlayers[playerCode].endGame=true
@@ -76,7 +77,7 @@ module.exports = class Room{
             this.lastMove.qtMovements++
         }
         const nextPlayer=(this.#color.white===this.lastMove.movement.color)?this.#color.black:this.#color.white
-        this.statusGame.currentPlaye=nextPlayer
+        this.statusGame.currentPlayer=nextPlayer
     }
     getCodes(playerCode){
         const statusCodes = {
@@ -112,7 +113,6 @@ module.exports = class Room{
     getStatusGame(){
         const statusGame = {
             connectionPlayers:this.statusGame.connectionPlayers,
-            giveUp:this.statusGame.giveUp,
             endGame:this.statusGame.endGame
         }
         return statusGame
@@ -130,19 +130,25 @@ module.exports = class Room{
         return true
     }
     verifyConnectionPlayers(){
+        const connectionPlayers =[false,false]
         if(this.infPlayers[this.playersCode.white].connection===true && this.infPlayers[this.playersCode.white].endGame===false){
-            if(this.playersCode.black){
-                if(this.infPlayers[this.playersCode.black].connection===true && this.infPlayers[this.playersCode.black].endGame===false){
-                   return true
-                }
+            connectionPlayers[0]=true
+        }
+        if(this.playersCode.black){
+            if(this.infPlayers[this.playersCode.black].connection===true && this.infPlayers[this.playersCode.black].endGame===false){
+                connectionPlayers[1]=true
             }
         }
-        return false
+        return connectionPlayers
     }
     verifyCodePlayers(playerCode){
         if(this.infPlayers[playerCode]){
             return true
         }
         return false
+    }
+    getCodeNextPlayer(){
+        const codeOfTheNextPlayer = this.playersCode[this.statusGame.currentPlayer]
+        return codeOfTheNextPlayer
     }
 }
