@@ -18,7 +18,7 @@ module.exports = class GameTime{
                     if((Date.now()-game.infPlayers[playerCode].time)>this.#times.connectPlayer){
                         clearInterval(timePlayers) 
                         const typeEndGame =  statusServer.statusGame.giveUp
-                        game.updateEndGame(typeEndGame,playerCode)
+                        game.updateEndGamePlayer(typeEndGame,playerCode)
                         this.verifyToEndGame(gameRooms,game,roomCode)
                     }
                 }

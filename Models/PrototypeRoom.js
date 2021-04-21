@@ -23,6 +23,7 @@ module.exports = class Room{
                 playerName:null
             }
         }
+        this.historyMovement=[]
         this.lastMove = {
             qtMovements:0,
             availableMovement:false,
@@ -64,6 +65,10 @@ module.exports = class Room{
                 this.lastMove.movement = movement
                 this.lastMove.movementTime = movementTime
                 this.lastMove.qtMovements++
+                const nextPlayer=(this.#color.white===this.lastMove.movement.color)?this.#color.black:this.#color.white
+                this.statusGame.currentPlayer=nextPlayer
+                const history = playHistory(movement, playerCode,movementTime)
+                this.historyMovement.push(history)
             }
             else{
                 this.lastMove.availableMovement = false
@@ -75,9 +80,12 @@ module.exports = class Room{
             this.lastMove.availableMovement = true
             this.lastMove.movementTime = movementTime
             this.lastMove.qtMovements++
+            const nextPlayer=(this.#color.white===this.lastMove.movement.color)?this.#color.black:this.#color.white
+            this.statusGame.currentPlayer=nextPlayer
+            const history = playHistory(movement, playerCode,movementTime)
+            this.historyMovement.push(history)
         }
-        const nextPlayer=(this.#color.white===this.lastMove.movement.color)?this.#color.black:this.#color.white
-        this.statusGame.currentPlayer=nextPlayer
+        console.log(this.historyMovement)
     }
     getCodes(playerCode){
         const statusCodes = {
@@ -122,6 +130,8 @@ module.exports = class Room{
     }
     reportIncorretMovement(){
         this.lastMove.incorretMovement=true
+        const movement={movement:"incorretMovement"}
+        this.historyMovement.push(movement)
     }
     verifyPlayers(){
         if(this.playersCode.white!==null && this.playersCode.black!==null){
@@ -150,5 +160,13 @@ module.exports = class Room{
     getCodeNextPlayer(){
         const codeOfTheNextPlayer = this.playersCode[this.statusGame.currentPlayer]
         return codeOfTheNextPlayer
+    }
+}
+
+function playHistory(movement, playerCode,movementTime){
+    return {
+        playerCode: playerCode,
+        movement: movement,
+        movementTime: movementTime,
     }
 }
