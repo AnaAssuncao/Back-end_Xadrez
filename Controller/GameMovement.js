@@ -8,11 +8,11 @@ module.exports= class Movement {
         const roomCode = req.body.roomCode
         const playerCode = req.body.playerCode
         const moveSent = req.body.movement
+        const movementTime = req.body.movementTime
         const existCode = gameRooms.verifyRoomCode(roomCode)
         if(existCode){
             const game = gameRooms.getGameByRoomCode(roomCode)
            if(game.lastMove.playerCode!==playerCode){
-                const movementTime= Date.now()
                 game.updateLastMove(moveSent, playerCode,movementTime)
                 if(game.lastMove.availableMovement === true ){
                     const status = new InfMovement(game, playerCode, statusServer.movement.correctMovement)

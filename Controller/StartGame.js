@@ -33,6 +33,7 @@ module.exports = class RoomCode{
 	connectInARoom(req,res,gameRooms){
 		const roomCode = req.body.roomCode
 		const playerName = req.body.playerName
+		const startTime = req.body.startTime
 		const existCode = gameRooms.verifyRoomCode(roomCode)
 		if(existCode){
 			const game = gameRooms.getGameByRoomCode(roomCode)
@@ -40,6 +41,7 @@ module.exports = class RoomCode{
 			if(availabilityPlay){
 				const playerCode = uuidv4()
 				const playerColor = "Black"
+				game.addStartTime(startTime)
 				game.addSecondPlayer(playerCode,playerName,playerColor)
 				const status = new InfGame(game,playerCode,statusServer.room.connectedRoom)
 				res.status(200).send(status)

@@ -14,6 +14,7 @@ class InfMovement{
         this.typeStatus = statusMovement
         this.statusCodes = game.getCodes(playerCode)
         this.statusGame = game.getStatusGame()
+        this.movementTime= game.getMovementTime()
         this.move = null
         this.getMovement(game,statusMovement)
     }

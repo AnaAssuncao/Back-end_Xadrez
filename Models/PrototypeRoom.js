@@ -15,6 +15,7 @@ module.exports = class Room{
             // Chave do objeto é o codigo do jogador. Objeto contém as informações de cada jogador.
         }
         this.statusGame = {
+            startTime:null,
             currentPlayer:"white",
             connectionPlayers: false,
             endGame: {
@@ -38,6 +39,9 @@ module.exports = class Room{
     
     startPlayerOne(playerCode, namePlayer,playerColor){
         this.infPlayers[playerCode] = new InfPlayer(playerCode, namePlayer,playerColor)
+    }
+    addStartTime(startTime){
+        this.statusGame.startTime=startTime
     }
     addSecondPlayer(playerCode,namePlayer,playerColor){
         this.lastMove.movementTime=Date.now()
@@ -120,6 +124,7 @@ module.exports = class Room{
     }
     getStatusGame(){
         const statusGame = {
+            startTime:this.statusGame.startTime,
             connectionPlayers:this.statusGame.connectionPlayers,
             endGame:this.statusGame.endGame
         }
@@ -127,6 +132,9 @@ module.exports = class Room{
     }
     getQtMovement(){
         return this.lastMove.qtMovements
+    }
+    getMovementTime(){
+        return this.lastMove.movementTime
     }
     reportIncorretMovement(){
         this.lastMove.incorretMovement=true
