@@ -55,7 +55,7 @@ npm Main.js
 
 ## 🎲 Rodando o Back End (servidor)
 O servidor está rodando na plataforma em nuvem [Heroku](https://www.heroku.com/).
-E inciará no Heroku: https://xadrez-server.herokuapp.com/api/v1.
+E iniciará no Heroku: https://xadrez-server.herokuapp.com/api/v1.
 
 ## 🎲 Rodando o Front End
 Entrar na página abaixo para poder jogar:
@@ -63,14 +63,14 @@ Entrar na página abaixo para poder jogar:
 
 ## ⚙️ Features
 O Controller do servidor é separado em arquivos que contém class referente a cada especificação, sendo elas: 
--Para acordar o servidor no Heroku;
--Referente ao início do jogo, informando sobre a conexões com o código da sala;
--Com funções referente ao movimentos do jogador, guardar no servidor, pegar o último movimento e informar se
+- Para acordar o servidor no Heroku;
+- Referente ao início do jogo, informando sobre a conexões com o código da sala;
+- Com funções referente ao movimentos do jogador, guardar no servidor, pegar o último movimento e informar se
 esta incorreto;
--Para verificar os tempos referente ao jogo. Tempo que o jogador está inativo, de cada movimento, de fim de 
+- Para verificar os tempos referente ao jogo. Tempo que o jogador está inativo, de cada movimento, de fim de 
 jogo e para reconectar ao jogo; 
--Para reconectar o jogador no jogo; e
--Referente ao status do jogo, para pegar as informações do status e informar desitência, fim de jogo e vitória;
+- Para reconectar o jogador no jogo; e
+- Referente ao status do jogo, para pegar as informações do status e informar desitência, fim de jogo e vitória;
 
 No servidor possui três modelos de protótipos, referente ao jogo global - que encapsula os jogos de cada código,
 o da sala - a qual está tudo conforme a um jogo de um código, e os protótipo que serão enviados para Front End.
