@@ -6,21 +6,20 @@
 
 # Indice
 
-- [Sobre](#-Sobre)
-- [Tecnologias](#-Tecnologias)
-- [Pré-requisitos](#-Pré-requisitos)
-- [Rodando o Back End](#-Rodando-o-Back-End-(servidor))
-- [Rodando o Front End](#-Rodando-o-Back-End-(servidor))
-- [Features](#-Features)
-- [Autor](#-Autor)
+- [Sobre](#-sobre)
+- [Tecnologias](#-tecnologias)
+- [Pré-requisitos](#-pré-requisitos)
+- [Rodando o Back End](#-rodando-o-back-end-servidor)
+- [Rodando o Front End](#-rodando-o-front-end)
+- [Features](#-features)
+- [Autor](#-autor)
 
 ## ♟️ Sobre
-Um projeto de um servidor do jogo Xadrez para jogar em multiplayer.
-Criado como estudo para aprimorar o entendimento na linguagem JavaScript, arquitetura de software e princÍpios
-SOLID.
-O servidor foi programado na linguagem JavaScript.
-Comunicação entre Front End e o servidor é realizada pelo protocolo HTTP, com uso da biblioteca Express para 
-fazer a solicitação do Front End e respondê-la.
+Servidor Xadrez tem como objetivo criar um servidor para rodar o jogo Xadrez de forma multiplayer, em que os jogadores recebem informações entre eles distante um do outro, apenas informando o nome e o código da sala. 
+
+Este projeto emprega-se JavaScript ES5 puro (vanilla-js) e fez uso de bibliotecas para o desenvolvimento. Na sua elaboração utilizou-se dos princípios SOLID, juntamente com boas práticas de engenharia de software. 
+
+Para realizar a comunicação entre Front End e o servidor usa-se o protocolo HTTP.
 
 ### 🛠 Tecnologias
 As seguintes ferramentas foram usadas na construção do projeto:
@@ -28,11 +27,12 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Node.js](https://nodejs.org/en/)
 
 Principais bibliotecas utilizadas:
+
 - [Cors](https://www.npmjs.com/package/cors)
 - [Express](https://expressjs.com/)
 - [Uuid](https://www.npmjs.com/package/uuid)
 
-## ✔️ Pré-requisitos
+## ✅ Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
@@ -55,29 +55,29 @@ npm start
 
 ## 🎲 Rodando o Back End (servidor)
 O servidor está rodando na plataforma em nuvem [Heroku](https://www.heroku.com/).
-E iniciará no Heroku: https://xadrez-server.herokuapp.com/api/v1.
 
-## 🎲 Rodando o Front End
-Entrar na página abaixo para poder jogar:
-<https://anaassuncao.github.io/Front-end_Xadrez/>
+E iniciará no acesso Heroku: https://xadrez-server.herokuapp.com/api/v1.
 
-## ⚙️ Features
-O Controller do servidor é separado em arquivos que contém class referente a cada especificação, sendo elas: 
-- Para acordar o servidor no Heroku;
-- Referente ao início do jogo, informando sobre a conexões com o código da sala;
-- Com funções referente ao movimentos do jogador, guardar no servidor, pegar o último movimento e informar se
-esta incorreto;
-- Para verificar os tempos referente ao jogo. Tempo que o jogador está inativo, de cada movimento, de fim de 
-jogo e para reconectar ao jogo; 
-- Para reconectar o jogador no jogo; e
-- Referente ao status do jogo, para pegar as informações do status e informar desitência, fim de jogo e vitória;
+## 💻 Rodando o Front End
+Para saber mais sobre a página web deste jogo acesse o link abaixo:
+<https://github.com/AnaAssuncao/Front-end_Xadrez>
 
-No servidor possui três modelos de protótipos, referente ao jogo global - que encapsula os jogos de cada código,
-o da sala - a qual está tudo conforme a um jogo de um código, e os protótipo que serão enviados para Front End.
+<h4 align= "center">Caso queira jogar Xadrez para se divertir com um amigo</h4>
+<h4 align= "center" ><a href="https://anaassuncao.github.io/Front-end_Xadrez/" >Clique aqui</a></h4>
+
+## 🔧 Features
+O Controller do servidor é separado em arquivos que contém class referente a cada especificação, sendo a funcionalidades delas: 
+- Acordar o servidor na plataforma nuvem (Heroku);
+- Referenciar ao início do jogo, comunicando sobre as possíveis conexões pelo código da sala informado na comunicação. E quando um jogador conecta com uma sala ele possui um código apenas dele gerado pela biblioteca UUID;
+- Conter funções referente aos movimentos dos jogadores, a qual guardar estes no histórico do servidor, pegar o último movimento quando solicitado por um jogador e recebe a informação caso o movimento está incorreto;
+- Verificar os tempos referente ao jogo. Sendo eles: tempo de inatividade dos jogadores, do turno para poder mover, de fim de jogo e para reconectar ao jogo; 
+- Reconectar o jogador no jogo; e
+- Referenciar ao status do jogo, para os jogadores pegar as informações do status, e receber informação caso desitência, fim de jogo e vitória;
+
+No servidor possui três modelos de protótipos, eles são: referente ao jogo global - que encapsula todos as salas de jogo; o da sala - a qual contém as funções e informações sobre um determinado jogo; e os protótipos que serão enviados como resposta da comunicação HTTP.
 
 ## Autor
 <img style="border-radius: 50%;" src="https://media-exp1.licdn.com/dms/image/C4E03AQGYUal9ZyvRtA/profile-displayphoto-shrink_800_800/0/1594406991642?e=1625097600&v=beta&t=T9H1zgdKQ4H1Ecrgm0AKNCkoxkE8xKL5zCo3_1GN0QM" width="150px;" alt=""/>
-<br />
 <sub><b>Ana Paula Assunção</b></sub>
 
 [![Linkedin Badge](https://img.shields.io/badge/-AnaAssunção-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/ana-assuncao/)](https://www.linkedin.com/in/ana-assuncao/) 
