@@ -15,7 +15,7 @@
 - [Autor](#-autor)
 
 ## ♟️ Sobre
-Servidor Xadrez tem como objetivo criar um servidor para rodar o jogo Xadrez de forma multiplayer, em que os jogadores recebem informações entre eles distante um do outro, apenas informando o nome e o código da sala. 
+Servidor Xadrez tem como objetivo criar um servidor para rodar o jogo Xadrez de forma multiplayer, para que os jogadores sejam capazes de trocar informações entre eles distante um do outro, apenas informando o nome e o código da sala quando conectam. 
 
 Este projeto emprega-se JavaScript ES5 puro (vanilla-js) e fez uso de bibliotecas para o desenvolvimento. Na sua elaboração utilizou-se dos princípios SOLID, juntamente com boas práticas de engenharia de software. 
 
